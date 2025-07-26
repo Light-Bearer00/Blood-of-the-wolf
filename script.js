@@ -1,24 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if mobile device
+    const isMobile = window.innerWidth <= 768;
+    
     // Initialize the shrine
     initializeShrine();
     
     // Start the poetry animation sequence
     startPoetryAnimation();
     
-    // Create ambient particles
-    createParticles();
-    
-    // Create floating ashes
-    createFloatingAshes();
-    
-    // Initialize mystic canvas
-    initMysticCanvas();
+    // Only create heavy effects on desktop
+    if (!isMobile) {
+        // Create ambient particles
+        createParticles();
+        
+        // Create floating ashes
+        createFloatingAshes();
+        
+        // Initialize mystic canvas
+        initMysticCanvas();
+        
+        // Add audio ambiance
+        addAudioAmbiance();
+    }
     
     // Add interactive effects
     addInteractiveEffects();
-    
-    // Add audio ambiance
-    addAudioAmbiance();
 });
 
 function initializeShrine() {
@@ -208,22 +214,25 @@ function createParticle(container) {
 }
 
 function addInteractiveEffects() {
-    // Add mouse movement effect to the symbol
+    // Add mouse movement effect to the symbol (desktop only)
     const symbol = document.getElementById('wolfSymbol');
     const fallbackSymbol = document.querySelector('.fallback-symbol');
+    const isMobile = window.innerWidth <= 768;
     
-    document.addEventListener('mousemove', function(e) {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-        
-        // Subtle parallax effect on the symbol
-        if (symbol) {
-            symbol.style.transform = `scale(1) translate(${x * 5}px, ${y * 5}px)`;
-        }
-        if (fallbackSymbol) {
-            fallbackSymbol.style.transform = `translate(${x * 5}px, ${y * 5}px)`;
-        }
-    });
+    if (!isMobile) {
+        document.addEventListener('mousemove', function(e) {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            // Subtle parallax effect on the symbol
+            if (symbol) {
+                symbol.style.transform = `scale(1) translate(${x * 5}px, ${y * 5}px)`;
+            }
+            if (fallbackSymbol) {
+                fallbackSymbol.style.transform = `translate(${x * 5}px, ${y * 5}px)`;
+            }
+        });
+    }
     
     // Add click effect to the symbol
     const symbolContainer = document.querySelector('.symbol-container');
@@ -476,23 +485,26 @@ function createAshParticle(container) {
 // Initialize mystic canvas with WebGL effects
 function initMysticCanvas() {
     const canvas = document.getElementById('mysticCanvas');
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     
     let particles = [];
-    const particleCount = 25; // Reduced from 50
+    const particleCount = 15; // Further reduced for better performance
     
     class MysticParticle {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.size = Math.random() * 2 + 1;
-            this.opacity = Math.random() * 0.5 + 0.1;
-            this.life = Math.random() * 100 + 50;
+            this.vx = (Math.random() - 0.5) * 0.3; // Slower movement
+            this.vy = (Math.random() - 0.5) * 0.3;
+            this.size = Math.random() * 1.5 + 0.5; // Smaller particles
+            this.opacity = Math.random() * 0.3 + 0.1;
+            this.life = Math.random() * 80 + 40;
         }
         
         update() {
@@ -503,7 +515,7 @@ function initMysticCanvas() {
             if (this.life <= 0) {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.life = Math.random() * 100 + 50;
+                this.life = Math.random() * 80 + 40;
             }
             
             if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
@@ -514,8 +526,8 @@ function initMysticCanvas() {
             ctx.save();
             ctx.globalAlpha = this.opacity;
             ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
-            ctx.shadowColor = 'rgba(255, 0, 0, 0.8)';
-            ctx.shadowBlur = 10;
+            ctx.shadowColor = 'rgba(255, 0, 0, 0.6)';
+            ctx.shadowBlur = 5; // Reduced blur
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
@@ -528,6 +540,7 @@ function initMysticCanvas() {
         particles.push(new MysticParticle());
     }
     
+    let animationId;
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
@@ -536,7 +549,7 @@ function initMysticCanvas() {
             particle.draw();
         });
         
-        // Draw connections
+        // Draw connections (simplified)
         particles.forEach((particle, i) => {
             particles.slice(i + 1).forEach(otherParticle => {
                 const distance = Math.sqrt(
@@ -544,13 +557,11 @@ function initMysticCanvas() {
                     Math.pow(particle.y - otherParticle.y, 2)
                 );
                 
-                if (distance < 100) {
+                if (distance < 80) { // Reduced connection distance
                     ctx.save();
-                    ctx.globalAlpha = (100 - distance) / 100 * 0.2;
-                    ctx.strokeStyle = 'rgba(255, 0, 0, 0.6)';
-                    ctx.lineWidth = 2;
-                    ctx.shadowColor = 'rgba(255, 0, 0, 0.8)';
-                    ctx.shadowBlur = 5;
+                    ctx.globalAlpha = (80 - distance) / 80 * 0.1;
+                    ctx.strokeStyle = 'rgba(255, 0, 0, 0.4)';
+                    ctx.lineWidth = 1; // Thinner lines
                     ctx.beginPath();
                     ctx.moveTo(particle.x, particle.y);
                     ctx.lineTo(otherParticle.x, otherParticle.y);
@@ -560,15 +571,19 @@ function initMysticCanvas() {
             });
         });
         
-        requestAnimationFrame(animate);
+        animationId = requestAnimationFrame(animate);
     }
     
     animate();
     
     // Handle resize
     window.addEventListener('resize', () => {
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+        }
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        animate();
     });
 }
 
@@ -600,13 +615,22 @@ function addAudioAmbiance() {
     }
 }
 
-// Add loading screen effect
+// Optimized loading screen effect
 window.addEventListener('load', function() {
-    // Fade in the body
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 1s ease-in-out';
-    
+    // Remove loading effect for faster perceived performance
+    document.body.style.opacity = '1';
+});
+
+// Add performance monitoring
+window.addEventListener('load', function() {
+    // Check if page is taking too long to load
     setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
+        const loadingElements = document.querySelectorAll('.ambient-glow, .breathing-light, .ethereal-mist, .mystic-veil');
+        if (loadingElements.length > 0) {
+            loadingElements.forEach(el => {
+                el.style.animation = 'none';
+                el.style.opacity = '0.2';
+            });
+        }
+    }, 5000); // If still loading after 5 seconds, disable heavy animations
 }); 

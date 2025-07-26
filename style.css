@@ -457,68 +457,106 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .title {
-        font-size: 3rem;
-        margin-bottom: 2.5rem;
-        letter-spacing: 0.1em;
-    }
-    
-    .poem-line {
-        font-size: 1.2rem;
-        line-height: 1.7;
-    }
-    
-    .final-line {
-        font-size: 1.5rem;
-    }
-    
-    .wolf-symbol {
-        width: 100px;
-        height: 100px;
-    }
-    
-    .symbol-container {
-        top: 15px;
-        right: 20px;
-    }
-    
-    .container {
-        padding: 1.5rem;
-    }
-    
-    .mystic-button {
-        padding: 1rem 2.5rem;
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .title {
         font-size: 2.5rem;
-        letter-spacing: 0.08em;
+        margin-bottom: 2rem;
+        letter-spacing: 0.1em;
+        text-shadow: 0 0 20px rgba(255, 0, 0, 1),
+                     0 0 40px rgba(255, 0, 0, 0.8);
     }
     
     .poem-line {
         font-size: 1.1rem;
         line-height: 1.6;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.4),
+                     0 0 30px rgba(255, 255, 255, 0.2);
     }
     
     .final-line {
         font-size: 1.3rem;
+        text-shadow: 0 0 20px rgba(255, 0, 0, 1),
+                     0 0 40px rgba(255, 0, 0, 0.8);
     }
     
     .wolf-symbol {
         width: 80px;
         height: 80px;
+        filter: drop-shadow(0 0 15px rgba(255, 0, 0, 1)) 
+                drop-shadow(0 0 30px rgba(255, 0, 0, 0.8));
     }
     
     .symbol-container {
         top: 10px;
         right: 15px;
+        position: fixed;
+    }
+    
+    .container {
+        padding: 1rem;
     }
     
     .mystic-button {
-        padding: 0.9rem 2rem;
+        padding: 0.8rem 2rem;
         font-size: 1rem;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.6),
+                    inset 0 0 20px rgba(255, 0, 0, 0.2);
+    }
+    
+    /* Disable heavy animations on mobile */
+    .ambient-glow,
+    .breathing-light,
+    .ethereal-mist,
+    .mystic-veil {
+        animation: none;
+        opacity: 0.3;
+    }
+    
+    .floating-ashes {
+        display: none;
+    }
+    
+    #mysticCanvas {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2rem;
+        letter-spacing: 0.08em;
+        text-shadow: 0 0 15px rgba(255, 0, 0, 1),
+                     0 0 30px rgba(255, 0, 0, 0.8);
+    }
+    
+    .poem-line {
+        font-size: 1rem;
+        line-height: 1.5;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4),
+                     0 0 20px rgba(255, 255, 255, 0.2);
+    }
+    
+    .final-line {
+        font-size: 1.1rem;
+        text-shadow: 0 0 15px rgba(255, 0, 0, 1),
+                     0 0 30px rgba(255, 0, 0, 0.8);
+    }
+    
+    .wolf-symbol {
+        width: 60px;
+        height: 60px;
+        filter: drop-shadow(0 0 10px rgba(255, 0, 0, 1)) 
+                drop-shadow(0 0 20px rgba(255, 0, 0, 0.8));
+    }
+    
+    .symbol-container {
+        top: 8px;
+        right: 10px;
+    }
+    
+    .mystic-button {
+        padding: 0.7rem 1.8rem;
+        font-size: 0.9rem;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.6),
+                    inset 0 0 15px rgba(255, 0, 0, 0.2);
     }
 }
 

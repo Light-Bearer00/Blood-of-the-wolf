@@ -39,7 +39,6 @@ body {
 .wolf-symbol {
     width: 120px;
     height: 120px;
-    /* Increased shadow values for stronger glow */
     filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)) drop-shadow(0 0 40px rgba(255, 0, 0, 0.9));
     opacity: 0.9;
     transition: all 0.5s ease;
@@ -49,7 +48,6 @@ body {
 }
 
 .wolf-symbol:hover {
-    /* Increased shadow values for stronger hover glow */
     filter: drop-shadow(0 0 30px rgba(255, 0, 0, 1)) drop-shadow(0 0 60px rgba(255, 0, 0, 0.95));
     opacity: 1;
     transform: scale(1.15);
@@ -63,7 +61,6 @@ body {
     }
 
     50% {
-        /* Increased peak glow */
         filter: drop-shadow(0 0 28px rgba(255, 0, 0, 1)) drop-shadow(0 0 56px rgba(255, 0, 0, 1));
     }
 }
@@ -93,7 +90,6 @@ body {
     font-size: 4.5rem;
     font-weight: 900;
     color: #ff0000;
-    /* Increased text-shadow values for stronger glow */
     text-shadow: 0 0 30px rgba(255, 0, 0, 1),
         0 0 60px rgba(255, 0, 0, 0.9);
     margin-bottom: 4rem;
@@ -113,13 +109,11 @@ body {
     left: -40px;
     right: -40px;
     bottom: -40px;
-    /* Increased opacity for a stronger radial glow */
     background: radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.2) 50%, transparent 80%);
     border-radius: 50%;
     animation: titleGlow 3s ease-in-out infinite;
     z-index: -1;
     filter: blur(10px);
-    /* Slightly increased blur */
 }
 
 .title::after {
@@ -129,13 +123,11 @@ body {
     left: -60px;
     right: -60px;
     bottom: -60px;
-    /* Increased opacity for a stronger radial glow */
     background: radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, rgba(255, 0, 0, 0.1) 60%, transparent 90%);
     border-radius: 50%;
     animation: titleGlowOuter 4s ease-in-out infinite;
     z-index: -2;
     filter: blur(20px);
-    /* Slightly increased blur */
 }
 
 @keyframes titleGlow {
@@ -147,7 +139,6 @@ body {
     }
 
     50% {
-        /* Increased peak opacity */
         opacity: 0.8;
         transform: scale(1.1);
     }
@@ -162,7 +153,6 @@ body {
     }
 
     50% {
-        /* Increased peak opacity */
         opacity: 0.5;
         transform: scale(1.2);
     }
@@ -177,7 +167,6 @@ body {
     }
 
     50% {
-        /* Increased peak text-shadow */
         text-shadow: 0 0 40px rgba(255, 0, 0, 1),
             0 0 80px rgba(255, 0, 0, 1);
     }
@@ -210,7 +199,6 @@ body {
     transition: all 0.8s ease;
     font-style: italic;
     color: #ffffff;
-    /* Increased text-shadow for poem lines */
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     font-weight: 400;
     margin-bottom: 0.5rem;
@@ -233,7 +221,6 @@ body {
     }
 
     50% {
-        /* Increased peak text-shadow for poem lines */
         text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
             0 0 50px rgba(255, 255, 255, 0.6);
     }
@@ -244,7 +231,6 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     color: #ff0000;
-    /* Increased text-shadow for final line */
     text-shadow: 0 0 25px rgba(255, 0, 0, 1),
         0 0 50px rgba(255, 0, 0, 0.9);
     margin-top: 3rem;
@@ -264,13 +250,12 @@ body {
     }
 
     50% {
-        /* Increased peak text-shadow for final line */
         text-shadow: 0 0 35px rgba(255, 0, 0, 1),
             0 0 70px rgba(255, 0, 0, 1);
     }
 }
 
-/* Enhanced Ambient Effects */
+/* Ambient Effects */
 .ambient-glow {
     position: fixed;
     top: 0;
@@ -278,7 +263,6 @@ body {
     width: 100%;
     height: 100%;
     background:
-        /* Increased opacity for stronger radial glows */
         radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
         radial-gradient(circle at center,
@@ -289,7 +273,6 @@ body {
     z-index: 1;
     animation: glowPulse 10s ease-in-out infinite;
     filter: blur(0.8px);
-    /* Slightly increased blur for ambient glow */
     will-change: transform, opacity;
 }
 
@@ -299,7 +282,6 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Increased opacity for stronger breathing light */
     background:
         radial-gradient(ellipse at center, rgba(255, 0, 0, 0.12) 0%, transparent 70%);
     pointer-events: none;
@@ -314,7 +296,6 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Increased opacity for stronger mist */
     background:
         linear-gradient(45deg, transparent 30%, rgba(255, 0, 0, 0.06) 50%, transparent 70%);
     pointer-events: none;
@@ -329,7 +310,6 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Increased opacity for stronger veil effect */
     background:
         radial-gradient(circle at 30% 70%, rgba(0, 0, 0, 0.3) 0%, transparent 60%),
         radial-gradient(circle at 70% 30%, rgba(0, 0, 0, 0.25) 0%, transparent 60%);
@@ -352,11 +332,9 @@ body {
     position: absolute;
     width: 3px;
     height: 3px;
-    /* Increased opacity for ash particles */
     background: rgba(255, 0, 0, 0.8);
     border-radius: 50%;
     animation: ashFloat 8s linear infinite;
-    /* Increased shadow for ash particles */
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
 }
 
@@ -369,7 +347,6 @@ body {
     pointer-events: none;
     z-index: 6;
     opacity: 0.4;
-    /* Slightly increased overall opacity for canvas */
 }
 
 @keyframes glowPulse {
@@ -377,13 +354,11 @@ body {
     0%,
     100% {
         opacity: 0.6;
-        /* Increased base opacity */
         transform: scale(1) rotate(0deg);
     }
 
     50% {
         opacity: 0.8;
-        /* Increased peak opacity */
         transform: scale(1.06) rotate(0.6deg);
     }
 }
@@ -394,13 +369,11 @@ body {
     100% {
         transform: scale(1);
         opacity: 0.4;
-        /* Increased base opacity */
     }
 
     50% {
         transform: scale(1.1);
         opacity: 0.6;
-        /* Increased peak opacity */
     }
 }
 
@@ -408,19 +381,16 @@ body {
     0% {
         transform: translateX(-100%) translateY(-100%) rotate(0deg);
         opacity: 0.3;
-        /* Increased base opacity */
     }
 
     50% {
         transform: translateX(0%) translateY(0%) rotate(180deg);
         opacity: 0.7;
-        /* Increased peak opacity */
     }
 
     100% {
         transform: translateX(100%) translateY(100%) rotate(360deg);
         opacity: 0.3;
-        /* Increased base opacity */
     }
 }
 
@@ -430,25 +400,21 @@ body {
     100% {
         transform: translateX(0) translateY(0);
         opacity: 0.4;
-        /* Increased base opacity */
     }
 
     25% {
         transform: translateX(-15px) translateY(-8px);
         opacity: 0.6;
-        /* Increased peak opacity */
     }
 
     50% {
         transform: translateX(8px) translateY(-15px);
         opacity: 0.3;
-        /* Increased base opacity */
     }
 
     75% {
         transform: translateX(-8px) translateY(8px);
         opacity: 0.5;
-        /* Increased peak opacity */
     }
 }
 
@@ -460,12 +426,10 @@ body {
 
     10% {
         opacity: 1;
-        /* Restore full opacity for ash particles */
     }
 
     90% {
         opacity: 1;
-        /* Restore full opacity for ash particles */
     }
 
     100% {
@@ -488,7 +452,6 @@ body {
     position: absolute;
     width: 2px;
     height: 2px;
-    /* Increased opacity for particles */
     background: rgba(139, 0, 0, 0.7);
     border-radius: 50%;
     animation: float 6s ease-in-out infinite;
@@ -504,11 +467,10 @@ body {
 
     50% {
         opacity: 1;
-        /* Restore full opacity for particles */
     }
 }
 
-/* Responsive Design */
+/* Responsive Design - More Aggressive Mobile Optimizations */
 @media (max-width: 768px) {
     .title {
         font-size: 2.5rem;
@@ -522,18 +484,28 @@ body {
         font-size: 1.1rem;
         line-height: 1.6;
         text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        /* Disable line glow animation on mobile */
+        animation: none !important;
+        opacity: 1;
+        /* Ensure visible without animation */
+        transform: translateY(0);
+        /* Ensure position is reset */
     }
 
     .final-line {
         font-size: 1.3rem;
         text-shadow: 0 0 20px rgba(255, 0, 0, 1),
             0 0 40px rgba(255, 0, 0, 0.9);
+        /* Disable final line glow animation on mobile */
+        animation: none !important;
     }
 
     .wolf-symbol {
         width: 80px;
         height: 80px;
         filter: drop-shadow(0 0 15px rgba(255, 0, 0, 1)) drop-shadow(0 0 30px rgba(255, 0, 0, 0.9));
+        /* Disable symbol glow animation on mobile */
+        animation: none !important;
     }
 
     .symbol-container {
@@ -551,24 +523,46 @@ body {
         font-size: 1rem;
         box-shadow: 0 0 20px rgba(255, 0, 0, 0.7),
             inset 0 0 20px rgba(255, 0, 0, 0.3);
+        /* Disable button glow animation on mobile */
+        animation: none !important;
     }
 
-    /* Disable heavy animations on mobile */
+    /* Disable all heavy ambient animations and effects on mobile */
     .ambient-glow,
     .breathing-light,
     .ethereal-mist,
-    .mystic-veil {
-        animation: none;
-        opacity: 0.4;
-        /* Slightly increased mobile fallback opacity */
+    .mystic-veil,
+    .floating-ashes,
+    #mysticCanvas,
+    .particles {
+        display: none !important;
+        /* Hide completely */
+        animation: none !important;
+        /* Ensure no animation runs */
+        opacity: 0 !important;
+        /* Ensure no visual presence */
     }
 
-    .floating-ashes {
-        display: none;
+    /* Ensure no text shadows on title and poetry lines cause issues if needed
+       (already covered by specific text-shadow adjustments, but keeping this
+       here as a general fallback if performance is still critical) */
+    .title,
+    .poem-line,
+    .final-line {
+        text-shadow: none !important;
+        /* Or simplify to a single, light shadow */
+        filter: none !important;
+        /* Remove drop-shadows as well */
     }
 
-    #mysticCanvas {
-        display: none;
+    /* Re-add minimal text shadow for readability if completely removed */
+    .title {
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+    }
+
+    .poem-line,
+    .final-line {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     }
 }
 
@@ -612,7 +606,6 @@ body {
 }
 
 /* Mystic Button Styling */
-
 .mystic-button {
     display: inline-block;
     position: relative;
@@ -630,11 +623,9 @@ body {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     cursor: pointer;
-    /* Increased box-shadow for button */
     box-shadow: 0 0 30px rgba(255, 0, 0, 0.7),
         inset 0 0 30px rgba(255, 0, 0, 0.3);
     backdrop-filter: blur(10px);
-    /* Increased text-shadow for button text */
     text-shadow: 0 0 10px rgba(255, 0, 0, 0.9);
     animation: buttonGlow 4s ease-in-out infinite;
     will-change: transform, box-shadow;
@@ -660,13 +651,11 @@ body {
     border-color: #ff3333;
     color: #ffffff;
     transform: translateY(-4px) scale(1.02);
-    /* Increased hover box-shadow for button */
     box-shadow: 0 0 50px rgba(255, 0, 0, 0.9),
         0 0 80px rgba(255, 0, 0, 0.5),
         0 15px 30px rgba(0, 0, 0, 0.4),
         inset 0 0 50px rgba(255, 0, 0, 0.4);
     letter-spacing: 0.2em;
-    /* Increased hover text-shadow */
     text-shadow: 0 0 20px rgba(255, 255, 255, 1);
 }
 

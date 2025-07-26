@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Check if mobile device
-    const isMobile = window.innerWidth <= 768;
-    
+    const isMobile = window.innerWidth <= 768; // Based on CSS breakpoint
+
     // Initialize the shrine
     initializeShrine();
     
     // Start the poetry animation sequence
-    startPoetryAnimation();
+    startPoetryAnimation(isMobile); // Pass isMobile to animation function
     
     // Only create heavy effects on desktop
     if (!isMobile) {
@@ -23,26 +23,24 @@ document.addEventListener('DOMContentLoaded', function() {
         addAudioAmbiance();
     }
     
-    // Add interactive effects
-    addInteractiveEffects();
+    // Add interactive effects - conditionally simplified for mobile
+    addInteractiveEffects(isMobile);
 });
 
 function initializeShrine() {
-    // Preload the symbol image
     const symbol = document.getElementById('wolfSymbol');
-    if (symbol) { // Ensure symbol exists before adding event listeners
+    if (symbol) {
         symbol.addEventListener('load', function() {
             console.log('Wolf symbol loaded successfully');
         });
         
         symbol.addEventListener('error', function() {
             console.warn('Symbol image not found. Please ensure symbol.png is in the same directory or update the path.');
-            // Create a fallback symbol
             createFallbackSymbol();
         });
     } else {
         console.warn('Wolf symbol element not found. Please check your HTML ID.');
-        createFallbackSymbol(); // Try to create fallback even if ID is missing
+        createFallbackSymbol();
     }
 }
 
@@ -53,23 +51,24 @@ function createFallbackSymbol() {
         fallbackSymbol.className = 'fallback-symbol';
         fallbackSymbol.innerHTML = '🐺';
         fallbackSymbol.style.cssText = `
-            width: 120px; /* Match wolf-symbol width */
-            height: 120px; /* Match wolf-symbol height */
+            width: 120px;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 80px; /* Adjusted size */
+            font-size: 80px;
             filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)) 
-                    drop-shadow(0 0 40px rgba(255, 0, 0, 0.9)); /* Consistent with optimized CSS and enhanced glow */
+                    drop-shadow(0 0 40px rgba(255, 0, 0, 0.9));
             opacity: 0.9;
-            animation: symbolGlow 5s ease-in-out infinite; /* Apply symbol glow animation */
-            will-change: transform, filter; /* Consistent with optimized CSS */
+            /* Animation will be disabled by CSS media query on mobile */
+            animation: symbolGlow 5s ease-in-out infinite;
+            will-change: transform, filter;
         `;
         symbolContainer.appendChild(fallbackSymbol);
     }
 }
 
-function startPoetryAnimation() {
+function startPoetryAnimation(isMobile) {
     const lines = [
         'line1', 'line2', 'line3', 'line4', 'line5', 
         'line6', 'line7', 'line8', 'line9', 'line10', 
@@ -82,35 +81,35 @@ function startPoetryAnimation() {
         if (currentIndex < lines.length) {
             const lineElement = document.getElementById(lines[currentIndex]);
             if (lineElement) {
-                // Introduce a shorter, more reliable timeout for visibility
-                // This ensures the 'visible' class is applied consistently.
+                // Shorter delay for mobile, consistent for desktop
+                const lineDelay = isMobile ? 250 : 450; 
                 setTimeout(() => {
                     lineElement.classList.add('visible');
                     
-                    // Add subtle glow effect
-                    if (lines[currentIndex] === 'finalLine') {
-                        addFinalLineGlow(lineElement);
+                    // Conditionally add mystical effect for desktop only
+                    if (!isMobile) {
+                        if (lines[currentIndex] === 'finalLine') {
+                            addFinalLineGlow(lineElement);
+                        }
+                        addMysticalEffect(lineElement);
                     }
-                    
-                    // Add mystical effect to each line
-                    addMysticalEffect(lineElement);
                     
                     currentIndex++;
                     animateNextLine();
-                }, 450); // Slightly reduced delay between lines for faster reveal
+                }, lineDelay);
             }
         }
     }
     
-    // Start the animation sequence after the title has appeared
-    // Adjusted initial delay slightly to account for title animation + poetry start
+    // Adjusted initial delay for poetry based on mobile/desktop
+    const initialPoetryDelay = isMobile ? 3000 : 4500; // Faster poetry intro on mobile
     setTimeout(() => {
         animateNextLine();
-    }, 4500); // Increased initial delay slightly to ensure title is fully visible
+    }, initialPoetryDelay);
 }
 
 function addMysticalEffect(element) {
-    // Create a subtle ripple effect around the text
+    // This effect is now only called if !isMobile
     const ripple = document.createElement('div');
     ripple.style.cssText = `
         position: absolute;
@@ -118,7 +117,6 @@ function addMysticalEffect(element) {
         left: 50%;
         width: 0;
         height: 0;
-        /* Increased opacity for ripple */
         background: radial-gradient(circle, rgba(139, 0, 0, 0.3) 0%, transparent 70%);
         border-radius: 50%;
         transform: translate(-50%, -50%);
@@ -130,7 +128,6 @@ function addMysticalEffect(element) {
     element.style.position = 'relative';
     element.appendChild(ripple);
     
-    // Add the ripple animation
     if (!document.querySelector('#mysticalRippleAnimation')) {
         const style = document.createElement('style');
         style.id = 'mysticalRippleAnimation';
@@ -142,7 +139,7 @@ function addMysticalEffect(element) {
                     opacity: 1;
                 }
                 100% {
-                    width: 180px; /* Slightly increased size for a stronger ripple */
+                    width: 180px;
                     height: 180px; 
                     opacity: 0;
                 }
@@ -159,20 +156,19 @@ function addMysticalEffect(element) {
 }
 
 function addFinalLineGlow(element) {
-    // Add extra glow effect for the final line
+    // This effect is now only called if !isMobile
     element.style.animation = 'finalLineGlow 3s ease-in-out infinite';
     
-    // Add the keyframe animation dynamically (ensure consistent with CSS)
-    if (!document.querySelector('#finalLineGlowStyle')) { // Unique ID to avoid conflict
+    if (!document.querySelector('#finalLineGlowStyle')) {
         const style = document.createElement('style');
         style.id = 'finalLineGlowStyle';
         style.textContent = `
             @keyframes finalLineGlow {
                 0%, 100% {
-                    text-shadow: 0 0 25px rgba(139, 0, 0, 0.8), 0 0 50px rgba(139, 0, 0, 0.6); /* Adjusted for stronger glow */
+                    text-shadow: 0 0 25px rgba(139, 0, 0, 0.8), 0 0 50px rgba(139, 0, 0, 0.6);
                 }
                 50% {
-                    text-shadow: 0 0 35px rgba(139, 0, 0, 1), 0 0 70px rgba(139, 0, 0, 0.9); /* Adjusted for stronger glow */
+                    text-shadow: 0 0 35px rgba(139, 0, 0, 1), 0 0 70px rgba(139, 0, 0, 0.9);
                 }
             }
         `;
@@ -181,30 +177,29 @@ function addFinalLineGlow(element) {
 }
 
 function createParticles() {
+    // Only called if !isMobile
     const particlesContainer = document.querySelector('.particles');
-    const particleCount = 10; // Slightly increased from 8 for more visual density
+    const particleCount = 10;
     
     for (let i = 0; i < particleCount; i++) {
         createParticle(particlesContainer);
     }
     
-    // Continuously create new particles
     setInterval(() => {
         if (particlesContainer.children.length < particleCount) {
             createParticle(particlesContainer);
         }
-    }, 3500); // Slightly reduced interval for more particles over time
+    }, 3500);
 }
 
 function createParticle(container) {
+    // Only called if !isMobile
     const particle = document.createElement('div');
     particle.className = 'particle';
     
-    // Random position
     const x = Math.random() * window.innerWidth;
     const y = Math.random() * window.innerHeight;
     
-    // Random animation duration and delay
     const duration = 6 + Math.random() * 4;
     const delay = Math.random() * 2;
     
@@ -217,7 +212,6 @@ function createParticle(container) {
     
     container.appendChild(particle);
     
-    // Remove particle after animation
     setTimeout(() => {
         if (particle.parentNode) {
             particle.parentNode.removeChild(particle);
@@ -225,67 +219,76 @@ function createParticle(container) {
     }, (duration + delay) * 1000);
 }
 
-function addInteractiveEffects() {
-    // Add mouse movement effect to the symbol (desktop only)
+function addInteractiveEffects(isMobile) {
     const symbol = document.getElementById('wolfSymbol');
     const fallbackSymbol = document.querySelector('.fallback-symbol');
-    const isMobile = window.innerWidth <= 768;
     
+    // Mouse movement parallax only for desktop
     if (!isMobile) {
         document.addEventListener('mousemove', function(e) {
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
             
-            // Subtle parallax effect on the symbol
             if (symbol) {
-                // Apply will-change directly for immediate hint
                 symbol.style.willChange = 'transform'; 
-                symbol.style.transform = `scale(1) translate(${x * 8}px, ${y * 8}px)`; // Slightly increased parallax
+                symbol.style.transform = `scale(1) translate(${x * 8}px, ${y * 8}px)`;
             }
             if (fallbackSymbol) {
                 fallbackSymbol.style.willChange = 'transform'; 
-                fallbackSymbol.style.transform = `translate(${x * 8}px, ${y * 8}px)`; // Slightly increased parallax
+                fallbackSymbol.style.transform = `translate(${x * 8}px, ${y * 8}px)`;
             }
         });
     }
     
-    // Add click effect to the symbol
+    // Symbol click effect
     const symbolContainer = document.querySelector('.symbol-container');
     if (symbolContainer) {
-        symbolContainer.addEventListener('click', function(e) { // Pass event object
-            createRippleEffect(e);
+        symbolContainer.addEventListener('click', function(e) {
+            // Simplify ripple effect for mobile, or remove entirely if still lagging
+            if (!isMobile) {
+                createRippleEffect(e);
+            } else {
+                // A very subtle, non-animated visual cue for mobile click if needed
+                symbolContainer.style.opacity = '0.7';
+                setTimeout(() => {
+                    symbolContainer.style.opacity = ''; // Reset
+                }, 100);
+            }
         });
     }
     
-    // Add mystic button effects
+    // Mystic button effects
     const mysticButton = document.getElementById('mysticButton');
     if (mysticButton) {
-        mysticButton.addEventListener('mouseenter', function() {
-            createButtonParticles(this);
-        });
+        // Button particles on hover only for desktop
+        if (!isMobile) {
+            mysticButton.addEventListener('mouseenter', function() {
+                createButtonParticles(this);
+            });
+        }
         
         mysticButton.addEventListener('click', function(e) {
-            // Add click animation
             this.style.transform = 'translateY(-1px) scale(0.98)';
             setTimeout(() => {
                 this.style.transform = '';
             }, 150);
             
-            // Create special click effect
-            createButtonClickEffect(e);
+            // Button click ripple only for desktop
+            if (!isMobile) {
+                createButtonClickEffect(e);
+            }
         });
     }
     
-    // Add keyboard interaction
+    // Keyboard interaction (always enabled as it's not heavy)
     document.addEventListener('keydown', function(e) {
         if (e.key === ' ' || e.key === 'Enter') {
             e.preventDefault();
-            // Restart the poetry animation
-            restartPoetryAnimation();
+            restartPoetryAnimation(isMobile); // Pass isMobile
         }
     });
     
-    // Add touch support for mobile
+    // Touch support for mobile (always enabled, simplified restart)
     let touchStartY = 0;
     document.addEventListener('touchstart', function(e) {
         touchStartY = e.touches[0].clientY;
@@ -297,28 +300,26 @@ function addInteractiveEffects() {
         
         // Swipe up to restart
         if (diff > 50) {
-            restartPoetryAnimation();
+            restartPoetryAnimation(isMobile); // Pass isMobile
         }
     });
 }
 
 function createRippleEffect(event) {
+    // Only called if !isMobile
     const ripple = document.createElement('div');
     ripple.className = 'ripple';
     ripple.style.cssText = `
         position: absolute;
         border-radius: 50%;
-        /* Increased opacity for ripple */
         background: rgba(139, 0, 0, 0.4);
         transform: scale(0);
         animation: ripple 0.6s linear;
         pointer-events: none;
-        /* Position relative to the clicked element, not page */
         left: ${event.offsetX}px; 
         top: ${event.offsetY}px;
     `;
     
-    // Add ripple keyframe animation
     if (!document.querySelector('#rippleAnimation')) {
         const style = document.createElement('style');
         style.id = 'rippleAnimation';
@@ -334,11 +335,10 @@ function createRippleEffect(event) {
     }
     
     const symbolContainer = document.querySelector('.symbol-container');
-    if (symbolContainer) { // Ensure container exists
+    if (symbolContainer) {
         symbolContainer.appendChild(ripple);
     }
     
-    // Remove ripple after animation
     setTimeout(() => {
         if (ripple.parentNode) {
             ripple.parentNode.removeChild(ripple);
@@ -346,43 +346,51 @@ function createRippleEffect(event) {
     }, 600);
 }
 
-function restartPoetryAnimation() {
+function restartPoetryAnimation(isMobile) {
     // Reset all lines
     const lines = document.querySelectorAll('.poem-line');
     lines.forEach(line => {
         line.classList.remove('visible');
+        // Ensure no leftover inline styles from mystical effect on desktop restart
+        if (!isMobile) {
+             line.style.position = ''; 
+        }
     });
     
     // Restart the animation
-    // Adjusted restart delay to allow lines to fully reset
+    const restartDelay = isMobile ? 800 : 1500; // Faster restart on mobile
     setTimeout(() => {
-        startPoetryAnimation();
-    }, 1500); 
+        startPoetryAnimation(isMobile);
+    }, restartDelay);
 }
 
-// Handle window resize
+// Handle window resize - conditionally adjust
 window.addEventListener('resize', function() {
-    // Recalculate particle positions if needed (simplistic for demonstration)
-    const particles = document.querySelectorAll('.particle');
-    particles.forEach(particle => {
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        particle.style.left = `${x}px`;
-        particle.style.top = `${y}px`;
-    });
+    const isMobile = window.innerWidth <= 768; // Re-evaluate mobile status on resize
 
-    // Resize canvas if it exists
-    const canvas = document.getElementById('mysticCanvas');
-    if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    // Particles and canvas only resize on desktop, as they are hidden on mobile
+    if (!isMobile) {
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach(particle => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+        });
+
+        const canvas = document.getElementById('mysticCanvas');
+        if (canvas) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            // Also re-init canvas particles if active (handled by initMysticCanvas on first call)
+        }
     }
 });
 
-// Button particle effects
 function createButtonParticles(button) {
+    // Only called if !isMobile
     const rect = button.getBoundingClientRect();
-    const particleCount = 6; // Slightly increased from 4 for more visual density
+    const particleCount = 6;
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
@@ -391,7 +399,6 @@ function createButtonParticles(button) {
             position: fixed;
             width: 3px;
             height: 3px;
-            /* Increased opacity for button particles */
             background: rgba(255, 0, 0, 0.9); 
             border-radius: 50%;
             pointer-events: none;
@@ -401,7 +408,6 @@ function createButtonParticles(button) {
             animation: buttonParticleFloat 1s ease-out forwards;
         `;
         
-        // Add keyframe animation
         if (!document.querySelector('#buttonParticleAnimation')) {
             const style = document.createElement('style');
             style.id = 'buttonParticleAnimation';
@@ -412,7 +418,7 @@ function createButtonParticles(button) {
                         opacity: 1;
                     }
                     100% {
-                        transform: translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px) scale(0); /* Slightly increased travel distance */
+                        transform: translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px) scale(0);
                         opacity: 0;
                     }
                 }
@@ -431,12 +437,12 @@ function createButtonParticles(button) {
 }
 
 function createButtonClickEffect(event) {
+    // Only called if !isMobile
     const ripple = document.createElement('div');
     ripple.className = 'button-ripple';
     ripple.style.cssText = `
         position: fixed;
         border-radius: 50%;
-        /* Increased opacity for button ripple */
         background: radial-gradient(circle, rgba(139, 0, 0, 0.5) 0%, transparent 70%);
         transform: scale(0);
         animation: buttonRipple 0.8s ease-out;
@@ -448,14 +454,13 @@ function createButtonClickEffect(event) {
         height: 0;
     `;
     
-    // Add ripple keyframe animation
     if (!document.querySelector('#buttonRippleAnimation')) {
         const style = document.createElement('style');
         style.id = 'buttonRippleAnimation';
         style.textContent = `
             @keyframes buttonRipple {
                 to {
-                    transform: scale(4); /* Slightly increased scale for button ripple */
+                    transform: scale(4);
                     opacity: 0;
                 }
             }
@@ -472,24 +477,24 @@ function createButtonClickEffect(event) {
     }, 800);
 }
 
-// Create floating ashes effect
 function createFloatingAshes() {
+    // Only called if !isMobile
     const ashesContainer = document.querySelector('.floating-ashes');
-    const ashCount = 15; // Slightly increased from 12 for more visual density
+    const ashCount = 15;
     
     for (let i = 0; i < ashCount; i++) {
         createAshParticle(ashesContainer);
     }
     
-    // Continuously create new ash particles
     setInterval(() => {
         if (ashesContainer.children.length < ashCount) {
             createAshParticle(ashesContainer);
         }
-    }, 2500); // Slightly reduced interval for more ashes over time
+    }, 2500);
 }
 
 function createAshParticle(container) {
+    // Only called if !isMobile
     const ash = document.createElement('div');
     ash.className = 'ash-particle';
     
@@ -512,8 +517,8 @@ function createAshParticle(container) {
     }, (duration + delay) * 1000);
 }
 
-// Initialize mystic canvas with WebGL effects
 function initMysticCanvas() {
+    // Only called if !isMobile
     const canvas = document.getElementById('mysticCanvas');
     if (!canvas) return;
     
@@ -524,17 +529,17 @@ function initMysticCanvas() {
     canvas.height = window.innerHeight;
     
     let particles = [];
-    const particleCount = 20; // Slightly increased from 15 for more visual density
+    const particleCount = 20;
     
     class MysticParticle {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.3; // Slightly faster movement
+            this.vx = (Math.random() - 0.5) * 0.3;
             this.vy = (Math.random() - 0.5) * 0.3;
-            this.size = Math.random() * 1.5 + 0.5; // Slightly larger particles
-            this.opacity = Math.random() * 0.3 + 0.1; // Increased base opacity
-            this.life = Math.random() * 80 + 40; // Slightly longer life for smoother transitions
+            this.size = Math.random() * 1.5 + 0.5;
+            this.opacity = Math.random() * 0.3 + 0.1;
+            this.life = Math.random() * 80 + 40;
         }
         
         update() {
@@ -556,8 +561,8 @@ function initMysticCanvas() {
             ctx.save();
             ctx.globalAlpha = this.opacity;
             ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
-            ctx.shadowColor = 'rgba(255, 0, 0, 0.6)'; // Increased shadow opacity
-            ctx.shadowBlur = 5; // Slightly increased blur
+            ctx.shadowColor = 'rgba(255, 0, 0, 0.6)';
+            ctx.shadowBlur = 5;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
@@ -565,7 +570,6 @@ function initMysticCanvas() {
         }
     }
     
-    // Initialize particles
     for (let i = 0; i < particleCount; i++) {
         particles.push(new MysticParticle());
     }
@@ -579,7 +583,6 @@ function initMysticCanvas() {
             particle.draw();
         });
         
-        // Draw connections (simplified)
         particles.forEach((particle, i) => {
             particles.slice(i + 1).forEach(otherParticle => {
                 const distance = Math.sqrt(
@@ -587,11 +590,11 @@ function initMysticCanvas() {
                     Math.pow(particle.y - otherParticle.y, 2)
                 );
                 
-                if (distance < 80) { // Slightly increased connection distance
+                if (distance < 80) {
                     ctx.save();
-                    ctx.globalAlpha = (80 - distance) / 80 * 0.08; // Increased opacity for connections
-                    ctx.strokeStyle = 'rgba(255, 0, 0, 0.4)'; // Slightly stronger color
-                    ctx.lineWidth = 1; // Slightly thicker lines
+                    ctx.globalAlpha = (80 - distance) / 80 * 0.08;
+                    ctx.strokeStyle = 'rgba(255, 0, 0, 0.4)';
+                    ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.moveTo(particle.x, particle.y);
                     ctx.lineTo(otherParticle.x, otherParticle.y);
@@ -606,14 +609,14 @@ function initMysticCanvas() {
     
     animate();
     
-    // Handle resize
     window.addEventListener('resize', () => {
+        // This is now redundant as resize event listener has mobile check.
+        // Keeping it for clarity but the outer resize handler should catch it.
         if (animationId) {
             cancelAnimationFrame(animationId);
         }
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        // Reinitialize particles on resize to avoid visual artifacts from old positions
         particles = []; 
         for (let i = 0; i < particleCount; i++) {
             particles.push(new MysticParticle());
@@ -622,20 +625,18 @@ function initMysticCanvas() {
     });
 }
 
-// Add subtle audio ambiance
 function addAudioAmbiance() {
-    // Create audio context for ambient sounds
+    // Only called if !isMobile
     if ('AudioContext' in window || 'webkitAudioContext' in window) {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         
-        // Create subtle ambient tone
         const oscillator = audioContext.createOscillator();
         const gainNode = audioContext.createGain();
         
         oscillator.connect(gainNode);
         gainNode.connect(audioContext.destination);
         
-        oscillator.frequency.setValueAtTime(55, audioContext.currentTime); // Low A
+        oscillator.frequency.setValueAtTime(55, audioContext.currentTime);
         oscillator.type = 'sine';
         
         gainNode.gain.setValueAtTime(0, audioContext.currentTime);
@@ -643,40 +644,26 @@ function addAudioAmbiance() {
         
         oscillator.start();
         
-        // Fade out after 10 seconds (adjust as needed)
         setTimeout(() => {
             gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 3);
-            // Optionally stop oscillator completely after fade out
             setTimeout(() => oscillator.stop(), 3100); 
         }, 7000);
     }
 }
 
-// Optimized loading screen effect (if any)
-// This section assumes a loading overlay that you want to hide
 window.addEventListener('load', function() {
-    // This part is for hiding a loading screen, if one existed.
-    // Assuming the body starts with opacity: 0; and transitions to 1;
     document.body.style.opacity = '1';
     
-    // Added a more robust check for heavy animations.
-    // If the page is still loading "heavily" after 5 seconds, tone them down.
+    // The previous logic here was for slow loading.
+    // With more aggressive `display: none` in CSS and JS checks,
+    // this timeout for toning down effects becomes less critical
+    // but can remain as a final safety fallback.
     setTimeout(() => {
-        const ambientElements = document.querySelectorAll('.ambient-glow, .breathing-light, .ethereal-mist, .mystic-veil');
+        const ambientElements = document.querySelectorAll('.ambient-glow, .breathing-light, .ethereal-mist, .mystic-veil, .floating-ashes, #mysticCanvas, .particles');
         ambientElements.forEach(el => {
-            // Apply these styles directly to override CSS animations
             el.style.animation = 'none';
-            el.style.opacity = '0.2'; // A slightly higher constant opacity for fallback
+            el.style.opacity = '0'; // Ensure completely hidden if CSS somehow failed
+            el.style.display = 'none'; // Ensure completely hidden
         });
-        const heavyParticleEffects = document.querySelectorAll('.floating-ashes, #mysticCanvas');
-        heavyParticleEffects.forEach(el => {
-            el.style.display = 'block'; // Ensure they are visible, but toned down
-            if (el.id === 'mysticCanvas') {
-                el.style.opacity = '0.25'; // Toned down opacity for canvas
-            } else if (el.classList.contains('floating-ashes')) {
-                // Individual ash particles might need their animation speed reduced if still an issue
-                // For now, let's keep them visible with their enhanced CSS glow.
-            }
-        });
-    }, 5000); // If still loading after 5 seconds, adjust heavy animations
+    }, 5000);
 });

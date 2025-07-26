@@ -39,9 +39,8 @@ body {
 .wolf-symbol {
     width: 120px;
     height: 120px;
-    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)) 
-            drop-shadow(0 0 40px rgba(255, 0, 0, 0.8))
-            drop-shadow(0 0 60px rgba(255, 0, 0, 0.6));
+    /* Increased shadow values for stronger glow */
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)) drop-shadow(0 0 40px rgba(255, 0, 0, 0.9));
     opacity: 0.9;
     transition: all 0.5s ease;
     object-fit: contain;
@@ -50,24 +49,22 @@ body {
 }
 
 .wolf-symbol:hover {
-    filter: drop-shadow(0 0 30px rgba(255, 0, 0, 1)) 
-            drop-shadow(0 0 60px rgba(255, 0, 0, 0.9))
-            drop-shadow(0 0 90px rgba(255, 0, 0, 0.7))
-            drop-shadow(0 0 120px rgba(255, 0, 0, 0.5));
+    /* Increased shadow values for stronger hover glow */
+    filter: drop-shadow(0 0 30px rgba(255, 0, 0, 1)) drop-shadow(0 0 60px rgba(255, 0, 0, 0.95));
     opacity: 1;
     transform: scale(1.15);
 }
 
 @keyframes symbolGlow {
-    0%, 100% {
-        filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)) 
-                drop-shadow(0 0 40px rgba(255, 0, 0, 0.8))
-                drop-shadow(0 0 60px rgba(255, 0, 0, 0.6));
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)) drop-shadow(0 0 40px rgba(255, 0, 0, 0.9));
     }
+
     50% {
-        filter: drop-shadow(0 0 30px rgba(255, 0, 0, 1)) 
-                drop-shadow(0 0 60px rgba(255, 0, 0, 0.9))
-                drop-shadow(0 0 90px rgba(255, 0, 0, 0.7));
+        /* Increased peak glow */
+        filter: drop-shadow(0 0 28px rgba(255, 0, 0, 1)) drop-shadow(0 0 56px rgba(255, 0, 0, 1));
     }
 }
 
@@ -76,6 +73,7 @@ body {
         opacity: 0;
         transform: scale(0.8) translateX(20px);
     }
+
     100% {
         opacity: 1;
         transform: scale(1) translateX(0);
@@ -95,9 +93,9 @@ body {
     font-size: 4.5rem;
     font-weight: 900;
     color: #ff0000;
+    /* Increased text-shadow values for stronger glow */
     text-shadow: 0 0 30px rgba(255, 0, 0, 1),
-                 0 0 60px rgba(255, 0, 0, 0.8),
-                 0 0 90px rgba(255, 0, 0, 0.6);
+        0 0 60px rgba(255, 0, 0, 0.9);
     margin-bottom: 4rem;
     opacity: 0;
     animation: titleFadeIn 2s ease-in-out 2s forwards, titleGlowPulse 4s ease-in-out infinite;
@@ -115,11 +113,13 @@ body {
     left: -40px;
     right: -40px;
     bottom: -40px;
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, rgba(255, 0, 0, 0.1) 50%, transparent 80%);
+    /* Increased opacity for a stronger radial glow */
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.2) 50%, transparent 80%);
     border-radius: 50%;
     animation: titleGlow 3s ease-in-out infinite;
     z-index: -1;
     filter: blur(10px);
+    /* Slightly increased blur */
 }
 
 .title::after {
@@ -129,45 +129,57 @@ body {
     left: -60px;
     right: -60px;
     bottom: -60px;
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0.05) 60%, transparent 90%);
+    /* Increased opacity for a stronger radial glow */
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, rgba(255, 0, 0, 0.1) 60%, transparent 90%);
     border-radius: 50%;
     animation: titleGlowOuter 4s ease-in-out infinite;
     z-index: -2;
     filter: blur(20px);
+    /* Slightly increased blur */
 }
 
 @keyframes titleGlow {
-    0%, 100% {
-        opacity: 0.4;
+
+    0%,
+    100% {
+        opacity: 0.5;
         transform: scale(1);
     }
+
     50% {
+        /* Increased peak opacity */
         opacity: 0.8;
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
 }
 
 @keyframes titleGlowOuter {
-    0%, 100% {
-        opacity: 0.2;
+
+    0%,
+    100% {
+        opacity: 0.3;
         transform: scale(1);
     }
+
     50% {
+        /* Increased peak opacity */
         opacity: 0.5;
-        transform: scale(1.3);
+        transform: scale(1.2);
     }
 }
 
 @keyframes titleGlowPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         text-shadow: 0 0 30px rgba(255, 0, 0, 1),
-                     0 0 60px rgba(255, 0, 0, 0.8),
-                     0 0 90px rgba(255, 0, 0, 0.6);
+            0 0 60px rgba(255, 0, 0, 0.9);
     }
+
     50% {
+        /* Increased peak text-shadow */
         text-shadow: 0 0 40px rgba(255, 0, 0, 1),
-                     0 0 80px rgba(255, 0, 0, 0.9),
-                     0 0 120px rgba(255, 0, 0, 0.7);
+            0 0 80px rgba(255, 0, 0, 1);
     }
 }
 
@@ -176,6 +188,7 @@ body {
         opacity: 0;
         transform: translateY(30px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -197,8 +210,8 @@ body {
     transition: all 0.8s ease;
     font-style: italic;
     color: #ffffff;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4),
-                 0 0 40px rgba(255, 255, 255, 0.2);
+    /* Increased text-shadow for poem lines */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     font-weight: 400;
     margin-bottom: 0.5rem;
     letter-spacing: 0.02em;
@@ -213,20 +226,17 @@ body {
 }
 
 @keyframes lineGlow {
-    0%, 100% {
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.4),
-                     0 0 40px rgba(255, 255, 255, 0.2);
-    }
-    50% {
-        text-shadow: 0 0 30px rgba(255, 255, 255, 0.6),
-                     0 0 60px rgba(255, 255, 255, 0.4),
-                     0 0 90px rgba(255, 0, 0, 0.3);
-    }
-}
 
-.poem-line.visible {
-    opacity: 1;
-    transform: translateY(0);
+    0%,
+    100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    50% {
+        /* Increased peak text-shadow for poem lines */
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+            0 0 50px rgba(255, 255, 255, 0.6);
+    }
 }
 
 .final-line {
@@ -234,9 +244,9 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     color: #ff0000;
+    /* Increased text-shadow for final line */
     text-shadow: 0 0 25px rgba(255, 0, 0, 1),
-                 0 0 50px rgba(255, 0, 0, 0.8),
-                 0 0 75px rgba(255, 0, 0, 0.6);
+        0 0 50px rgba(255, 0, 0, 0.9);
     margin-top: 3rem;
     font-style: italic;
     letter-spacing: 0.1em;
@@ -246,15 +256,17 @@ body {
 }
 
 @keyframes finalLineGlow {
-    0%, 100% {
+
+    0%,
+    100% {
         text-shadow: 0 0 25px rgba(255, 0, 0, 1),
-                     0 0 50px rgba(255, 0, 0, 0.8),
-                     0 0 75px rgba(255, 0, 0, 0.6);
+            0 0 50px rgba(255, 0, 0, 0.9);
     }
+
     50% {
+        /* Increased peak text-shadow for final line */
         text-shadow: 0 0 35px rgba(255, 0, 0, 1),
-                     0 0 70px rgba(255, 0, 0, 0.9),
-                     0 0 105px rgba(255, 0, 0, 0.7);
+            0 0 70px rgba(255, 0, 0, 1);
     }
 }
 
@@ -265,17 +277,19 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
+    background:
+        /* Increased opacity for stronger radial glows */
         radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.25) 0%, transparent 50%),
-        radial-gradient(circle at center, 
-            rgba(255, 0, 0, 0.2) 0%, 
-            rgba(0, 0, 0, 0.1) 50%, 
-            rgba(0, 0, 0, 0.5) 100%);
+        radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at center,
+            rgba(255, 0, 0, 0.25) 0%,
+            rgba(0, 0, 0, 0.15) 50%,
+            rgba(0, 0, 0, 0.6) 100%);
     pointer-events: none;
     z-index: 1;
     animation: glowPulse 10s ease-in-out infinite;
-    filter: blur(0.5px);
+    filter: blur(0.8px);
+    /* Slightly increased blur for ambient glow */
     will-change: transform, opacity;
 }
 
@@ -285,8 +299,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(ellipse at center, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+    /* Increased opacity for stronger breathing light */
+    background:
+        radial-gradient(ellipse at center, rgba(255, 0, 0, 0.12) 0%, transparent 70%);
     pointer-events: none;
     z-index: 2;
     animation: breathing 6s ease-in-out infinite;
@@ -299,7 +314,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
+    /* Increased opacity for stronger mist */
+    background:
         linear-gradient(45deg, transparent 30%, rgba(255, 0, 0, 0.06) 50%, transparent 70%);
     pointer-events: none;
     z-index: 3;
@@ -313,9 +329,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
+    /* Increased opacity for stronger veil effect */
+    background:
         radial-gradient(circle at 30% 70%, rgba(0, 0, 0, 0.3) 0%, transparent 60%),
-        radial-gradient(circle at 70% 30%, rgba(0, 0, 0, 0.2) 0%, transparent 60%);
+        radial-gradient(circle at 70% 30%, rgba(0, 0, 0, 0.25) 0%, transparent 60%);
     pointer-events: none;
     z-index: 4;
     animation: veilShift 10s ease-in-out infinite;
@@ -335,9 +352,11 @@ body {
     position: absolute;
     width: 3px;
     height: 3px;
+    /* Increased opacity for ash particles */
     background: rgba(255, 0, 0, 0.8);
     border-radius: 50%;
     animation: ashFloat 8s linear infinite;
+    /* Increased shadow for ash particles */
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
 }
 
@@ -349,28 +368,39 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 6;
-    opacity: 0.3;
+    opacity: 0.4;
+    /* Slightly increased overall opacity for canvas */
 }
 
 @keyframes glowPulse {
-    0%, 100% {
-        opacity: 0.5;
+
+    0%,
+    100% {
+        opacity: 0.6;
+        /* Increased base opacity */
         transform: scale(1) rotate(0deg);
     }
+
     50% {
         opacity: 0.8;
-        transform: scale(1.08) rotate(1deg);
+        /* Increased peak opacity */
+        transform: scale(1.06) rotate(0.6deg);
     }
 }
 
 @keyframes breathing {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
-        opacity: 0.3;
+        opacity: 0.4;
+        /* Increased base opacity */
     }
+
     50% {
-        transform: scale(1.2);
+        transform: scale(1.1);
         opacity: 0.6;
+        /* Increased peak opacity */
     }
 }
 
@@ -378,33 +408,47 @@ body {
     0% {
         transform: translateX(-100%) translateY(-100%) rotate(0deg);
         opacity: 0.3;
+        /* Increased base opacity */
     }
+
     50% {
         transform: translateX(0%) translateY(0%) rotate(180deg);
         opacity: 0.7;
+        /* Increased peak opacity */
     }
+
     100% {
         transform: translateX(100%) translateY(100%) rotate(360deg);
         opacity: 0.3;
+        /* Increased base opacity */
     }
 }
 
 @keyframes veilShift {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateX(0) translateY(0);
         opacity: 0.4;
+        /* Increased base opacity */
     }
+
     25% {
-        transform: translateX(-20px) translateY(-10px);
+        transform: translateX(-15px) translateY(-8px);
         opacity: 0.6;
+        /* Increased peak opacity */
     }
+
     50% {
-        transform: translateX(10px) translateY(-20px);
+        transform: translateX(8px) translateY(-15px);
         opacity: 0.3;
+        /* Increased base opacity */
     }
+
     75% {
-        transform: translateX(-10px) translateY(10px);
+        transform: translateX(-8px) translateY(8px);
         opacity: 0.5;
+        /* Increased peak opacity */
     }
 }
 
@@ -413,12 +457,17 @@ body {
         transform: translateY(100vh) translateX(0) rotate(0deg);
         opacity: 0;
     }
+
     10% {
         opacity: 1;
+        /* Restore full opacity for ash particles */
     }
+
     90% {
         opacity: 1;
+        /* Restore full opacity for ash particles */
     }
+
     100% {
         transform: translateY(-100px) translateX(100px) rotate(360deg);
         opacity: 0;
@@ -439,18 +488,23 @@ body {
     position: absolute;
     width: 2px;
     height: 2px;
-    background: rgba(139, 0, 0, 0.6);
+    /* Increased opacity for particles */
+    background: rgba(139, 0, 0, 0.7);
     border-radius: 50%;
     animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px) translateX(0px);
         opacity: 0;
     }
+
     50% {
         opacity: 1;
+        /* Restore full opacity for particles */
     }
 }
 
@@ -461,59 +515,58 @@ body {
         margin-bottom: 2rem;
         letter-spacing: 0.1em;
         text-shadow: 0 0 20px rgba(255, 0, 0, 1),
-                     0 0 40px rgba(255, 0, 0, 0.8);
+            0 0 40px rgba(255, 0, 0, 0.9);
     }
-    
+
     .poem-line {
         font-size: 1.1rem;
         line-height: 1.6;
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.4),
-                     0 0 30px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     }
-    
+
     .final-line {
         font-size: 1.3rem;
         text-shadow: 0 0 20px rgba(255, 0, 0, 1),
-                     0 0 40px rgba(255, 0, 0, 0.8);
+            0 0 40px rgba(255, 0, 0, 0.9);
     }
-    
+
     .wolf-symbol {
         width: 80px;
         height: 80px;
-        filter: drop-shadow(0 0 15px rgba(255, 0, 0, 1)) 
-                drop-shadow(0 0 30px rgba(255, 0, 0, 0.8));
+        filter: drop-shadow(0 0 15px rgba(255, 0, 0, 1)) drop-shadow(0 0 30px rgba(255, 0, 0, 0.9));
     }
-    
+
     .symbol-container {
         top: 10px;
         right: 15px;
         position: fixed;
     }
-    
+
     .container {
         padding: 1rem;
     }
-    
+
     .mystic-button {
         padding: 0.8rem 2rem;
         font-size: 1rem;
-        box-shadow: 0 0 20px rgba(255, 0, 0, 0.6),
-                    inset 0 0 20px rgba(255, 0, 0, 0.2);
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.7),
+            inset 0 0 20px rgba(255, 0, 0, 0.3);
     }
-    
+
     /* Disable heavy animations on mobile */
     .ambient-glow,
     .breathing-light,
     .ethereal-mist,
     .mystic-veil {
         animation: none;
-        opacity: 0.3;
+        opacity: 0.4;
+        /* Slightly increased mobile fallback opacity */
     }
-    
+
     .floating-ashes {
         display: none;
     }
-    
+
     #mysticCanvas {
         display: none;
     }
@@ -524,39 +577,37 @@ body {
         font-size: 2rem;
         letter-spacing: 0.08em;
         text-shadow: 0 0 15px rgba(255, 0, 0, 1),
-                     0 0 30px rgba(255, 0, 0, 0.8);
+            0 0 30px rgba(255, 0, 0, 0.9);
     }
-    
+
     .poem-line {
         font-size: 1rem;
         line-height: 1.5;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4),
-                     0 0 20px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
     }
-    
+
     .final-line {
         font-size: 1.1rem;
         text-shadow: 0 0 15px rgba(255, 0, 0, 1),
-                     0 0 30px rgba(255, 0, 0, 0.8);
+            0 0 30px rgba(255, 0, 0, 0.9);
     }
-    
+
     .wolf-symbol {
         width: 60px;
         height: 60px;
-        filter: drop-shadow(0 0 10px rgba(255, 0, 0, 1)) 
-                drop-shadow(0 0 20px rgba(255, 0, 0, 0.8));
+        filter: drop-shadow(0 0 12px rgba(255, 0, 0, 1)) drop-shadow(0 0 25px rgba(255, 0, 0, 0.9));
     }
-    
+
     .symbol-container {
         top: 8px;
         right: 10px;
     }
-    
+
     .mystic-button {
         padding: 0.7rem 1.8rem;
         font-size: 0.9rem;
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.6),
-                    inset 0 0 15px rgba(255, 0, 0, 0.2);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.7),
+            inset 0 0 15px rgba(255, 0, 0, 0.3);
     }
 }
 
@@ -579,10 +630,12 @@ body {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6),
-                inset 0 0 30px rgba(255, 0, 0, 0.2);
+    /* Increased box-shadow for button */
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.7),
+        inset 0 0 30px rgba(255, 0, 0, 0.3);
     backdrop-filter: blur(10px);
-    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    /* Increased text-shadow for button text */
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.9);
     animation: buttonGlow 4s ease-in-out infinite;
     will-change: transform, box-shadow;
 }
@@ -607,29 +660,34 @@ body {
     border-color: #ff3333;
     color: #ffffff;
     transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 0 50px rgba(255, 0, 0, 0.8),
-                0 0 80px rgba(255, 0, 0, 0.4),
-                0 15px 30px rgba(0, 0, 0, 0.4),
-                inset 0 0 50px rgba(255, 0, 0, 0.3);
+    /* Increased hover box-shadow for button */
+    box-shadow: 0 0 50px rgba(255, 0, 0, 0.9),
+        0 0 80px rgba(255, 0, 0, 0.5),
+        0 15px 30px rgba(0, 0, 0, 0.4),
+        inset 0 0 50px rgba(255, 0, 0, 0.4);
     letter-spacing: 0.2em;
+    /* Increased hover text-shadow */
     text-shadow: 0 0 20px rgba(255, 255, 255, 1);
 }
 
 @keyframes buttonGlow {
-    0%, 100% {
-        box-shadow: 0 0 30px rgba(255, 0, 0, 0.6),
-                    inset 0 0 30px rgba(255, 0, 0, 0.2);
+
+    0%,
+    100% {
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.7),
+            inset 0 0 30px rgba(255, 0, 0, 0.3);
     }
+
     50% {
-        box-shadow: 0 0 40px rgba(255, 0, 0, 0.8),
-                    inset 0 0 40px rgba(255, 0, 0, 0.3);
+        box-shadow: 0 0 45px rgba(255, 0, 0, 0.9),
+            inset 0 0 45px rgba(255, 0, 0, 0.4);
     }
 }
 
 .mystic-button:active {
     transform: translateY(-1px);
-    box-shadow: 0 0 20px rgba(139, 0, 0, 0.4),
-                0 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.5),
+        0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .button-text {
@@ -668,6 +726,7 @@ body {
         opacity: 0;
         transform: translateY(40px) scale(0.9);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -699,4 +758,4 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #a00000;
-} 
+}
